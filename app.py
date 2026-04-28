@@ -96,71 +96,71 @@ if uploaded_file:
     avg_delay = anomalies_only[anomalies_only['ANOMALY_TYPE'] == 'Shipping Delay']['Days for shipping (real)'].mean()
     col4.metric("Avg Delay (Days)", f"{avg_delay:.1f}" if pd.notna(avg_delay) else "0")
 
-    # # --- 6 Interactive Charts ---
-    # st.subheader("📊 Visual Analytics")
-    # r1c1, r1c2 = st.columns(2)
-    # r2c1, r2c2 = st.columns(2)
-    # r3c1, r3c2 = st.columns(2)
-
-    # # Build the 6 charts
-    # r1c1.plotly_chart(px.pie(anomalies_only, names='ANOMALY_TYPE', title="1. Anomaly Breakdown", hole=0.4), use_container_width=True)
-    # r1c2.plotly_chart(px.histogram(anomalies_only, x='Order Region', title="2. Risk by Region"), use_container_width=True)
-    # r2c1.plotly_chart(px.scatter(df_clean, x='Order Item Total', y='Order Item Profit Ratio', color='ANOMALY_TYPE', title="3. Financial Impact"), use_container_width=True)
-    # r2c2.plotly_chart(px.histogram(anomalies_only, x='order date (DateOrders)', title="4. Anomalies Over Time"), use_container_width=True)
-    # r3c1.plotly_chart(px.histogram(anomalies_only, x='Shipping Mode', color='ANOMALY_TYPE', title="5. Shipping Mode Risk"), use_container_width=True)
-    
-    # # Top 10 categories
-    # top_cats = anomalies_only['Category Name'].value_counts().head(10).reset_index()
-    # top_cats.columns = ['Category', 'Count']
-    # r3c2.plotly_chart(px.bar(top_cats, x='Count', y='Category', orientation='h', title="6. Top Risky Categories"), use_container_width=True)
-
     # --- 6 Interactive Charts ---
     st.subheader("📊 Visual Analytics")
     r1c1, r1c2 = st.columns(2)
     r2c1, r2c2 = st.columns(2)
     r3c1, r3c2 = st.columns(2)
 
-    # Custom Cyberpunk Color Palette
-    color_map = {
-        'Normal': '#2A2E39',          # Muted Dark Grey
-        'Shipping Delay': '#FF2B2B',  # Neon Red
-        'Profit Loss': '#00FFAA',     # Neon Mint
-        'High Discount': '#FFD700',   # Cyber Gold
-        'Data Mismatch': '#FF00FF'    # Neon Magenta
-    }
-
-    # 1. Anomaly Breakdown (Donut)
-    fig1 = px.pie(anomalies_only, names='ANOMALY_TYPE', title="1. Anomaly Breakdown", hole=0.4, 
-                  color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark')
-    r1c1.plotly_chart(fig1, use_container_width=True)
-
-    # 2. Risk by Region (Bar)
-    fig2 = px.histogram(anomalies_only, x='Order Region', title="2. Risk by Region", 
-                        color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark')
-    r1c2.plotly_chart(fig2, use_container_width=True)
-
-    # 3. Financial Impact (Scatter)
-    fig3 = px.scatter(df_clean, x='Order Item Total', y='Order Item Profit Ratio', 
-                      color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark',
-                      title="3. Financial Impact")
-    r2c1.plotly_chart(fig3, use_container_width=True)
-
-    # 4. Anomalies Over Time (Line)
-    fig4 = px.histogram(anomalies_only, x='order date (DateOrders)', title="4. Anomalies Over Time", 
-                        color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark')
-    r2c2.plotly_chart(fig4, use_container_width=True)
-
-    # 5. Shipping Mode Risk (Stacked Bar)
-    fig5 = px.histogram(anomalies_only, x='Shipping Mode', color='ANOMALY_TYPE', 
-                        color_discrete_map=color_map, title="5. Shipping Mode Risk", template='plotly_dark')
-    r3c1.plotly_chart(fig5, use_container_width=True)
+    # Build the 6 charts
+    r1c1.plotly_chart(px.pie(anomalies_only, names='ANOMALY_TYPE', title="1. Anomaly Breakdown", hole=0.4), use_container_width=True)
+    r1c2.plotly_chart(px.histogram(anomalies_only, x='Order Region', title="2. Risk by Region"), use_container_width=True)
+    r2c1.plotly_chart(px.scatter(df_clean, x='Order Item Total', y='Order Item Profit Ratio', color='ANOMALY_TYPE', title="3. Financial Impact"), use_container_width=True)
+    r2c2.plotly_chart(px.histogram(anomalies_only, x='order date (DateOrders)', title="4. Anomalies Over Time"), use_container_width=True)
+    r3c1.plotly_chart(px.histogram(anomalies_only, x='Shipping Mode', color='ANOMALY_TYPE', title="5. Shipping Mode Risk"), use_container_width=True)
     
-    # 6. Top Risky Categories (Horizontal Bar)
+    # Top 10 categories
     top_cats = anomalies_only['Category Name'].value_counts().head(10).reset_index()
     top_cats.columns = ['Category', 'Count']
-    fig6 = px.bar(top_cats, x='Count', y='Category', orientation='h', title="6. Top Risky Categories", 
-                  template='plotly_dark', color_discrete_sequence=['#FF2B2B'])
-    r3c2.plotly_chart(fig6, use_container_width=True)
+    r3c2.plotly_chart(px.bar(top_cats, x='Count', y='Category', orientation='h', title="6. Top Risky Categories"), use_container_width=True)
+
+    # # --- 6 Interactive Charts ---
+    # st.subheader("📊 Visual Analytics")
+    # r1c1, r1c2 = st.columns(2)
+    # r2c1, r2c2 = st.columns(2)
+    # r3c1, r3c2 = st.columns(2)
+
+    # # Custom Cyberpunk Color Palette
+    # color_map = {
+    #     'Normal': '#2A2E39',          # Muted Dark Grey
+    #     'Shipping Delay': '#FF2B2B',  # Neon Red
+    #     'Profit Loss': '#00FFAA',     # Neon Mint
+    #     'High Discount': '#FFD700',   # Cyber Gold
+    #     'Data Mismatch': '#FF00FF'    # Neon Magenta
+    # }
+
+    # # 1. Anomaly Breakdown (Donut)
+    # fig1 = px.pie(anomalies_only, names='ANOMALY_TYPE', title="1. Anomaly Breakdown", hole=0.4, 
+    #               color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark')
+    # r1c1.plotly_chart(fig1, use_container_width=True)
+
+    # # 2. Risk by Region (Bar)
+    # fig2 = px.histogram(anomalies_only, x='Order Region', title="2. Risk by Region", 
+    #                     color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark')
+    # r1c2.plotly_chart(fig2, use_container_width=True)
+
+    # # 3. Financial Impact (Scatter)
+    # fig3 = px.scatter(df_clean, x='Order Item Total', y='Order Item Profit Ratio', 
+    #                   color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark',
+    #                   title="3. Financial Impact")
+    # r2c1.plotly_chart(fig3, use_container_width=True)
+
+    # # 4. Anomalies Over Time (Line)
+    # fig4 = px.histogram(anomalies_only, x='order date (DateOrders)', title="4. Anomalies Over Time", 
+    #                     color='ANOMALY_TYPE', color_discrete_map=color_map, template='plotly_dark')
+    # r2c2.plotly_chart(fig4, use_container_width=True)
+
+    # # 5. Shipping Mode Risk (Stacked Bar)
+    # fig5 = px.histogram(anomalies_only, x='Shipping Mode', color='ANOMALY_TYPE', 
+    #                     color_discrete_map=color_map, title="5. Shipping Mode Risk", template='plotly_dark')
+    # r3c1.plotly_chart(fig5, use_container_width=True)
+    
+    # # 6. Top Risky Categories (Horizontal Bar)
+    # top_cats = anomalies_only['Category Name'].value_counts().head(10).reset_index()
+    # top_cats.columns = ['Category', 'Count']
+    # fig6 = px.bar(top_cats, x='Count', y='Category', orientation='h', title="6. Top Risky Categories", 
+    #               template='plotly_dark', color_discrete_sequence=['#FF2B2B'])
+    # r3c2.plotly_chart(fig6, use_container_width=True)
 
     # --- Clean Data Table ---
     st.divider()
