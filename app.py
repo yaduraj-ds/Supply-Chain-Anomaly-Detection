@@ -162,6 +162,14 @@ if uploaded_file:
     #               template='plotly_dark', color_discrete_sequence=['#FF2B2B'])
     # r3c2.plotly_chart(fig6, use_container_width=True)
 
+#     [theme]
+# base="dark"
+# primaryColor="#FF2B2B"
+# backgroundColor="#0A0E17"
+# secondaryBackgroundColor="#161A25"
+# textColor="#E0E6ED"
+# font="sans serif"
+
     # --- Clean Data Table ---
     st.divider()
     st.subheader("🔍 Filter & Investigate")
